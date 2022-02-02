@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.zhuyajie666.bookmanagesystem.dao.UserBorrowLogMapper">
+  <resultMap id="BaseResultMap" type="io.github.zhuyajie666.bookmanagesystem.entity.UserBorrowLog">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="book_id" jdbcType="INTEGER" property="bookId" />
+    <result column="isbn" jdbcType="VARCHAR" property="isbn" />
+    <result column="borrow_at" jdbcType="TIMESTAMP" property="borrowAt" />
+    <result column="borrow_days" jdbcType="INTEGER" property="borrowDays" />
+    <result column="is_return" jdbcType="BIT" property="isReturn" />
+    <result column="return_at" jdbcType="TIMESTAMP" property="returnAt" />
+    <result column="over_days" jdbcType="INTEGER" property="overDays" />
+    <result column="fine" jdbcType="DECIMAL" property="fine" />
+  </resultMap>
+</mapper>

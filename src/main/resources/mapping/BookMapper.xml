@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.zhuyajie666.bookmanagesystem.dao.BookMapper">
+  <resultMap id="BaseResultMap" type="io.github.zhuyajie666.bookmanagesystem.entity.Book">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="pinyin" jdbcType="VARCHAR" property="pinyin" />
+    <result column="pinyin_abbr" jdbcType="VARCHAR" property="pinyinAbbr" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="pub" jdbcType="VARCHAR" property="pub" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="inventory" jdbcType="INTEGER" property="inventory" />
+    <result column="remain_inventory" jdbcType="INTEGER" property="remainInventory" />
+    <result column="create_at" jdbcType="TIMESTAMP" property="createAt" />
+    <result column="create_by" jdbcType="INTEGER" property="createBy" />
+    <result column="update_at" jdbcType="TIMESTAMP" property="updateAt" />
+    <result column="update_by" jdbcType="INTEGER" property="updateBy" />
+    <result column="isbn" jdbcType="INTEGER" property="isbn" />
+    <result column="del" jdbcType="BIT" property="del" />
+  </resultMap>
+
+  <select id="query" parameterType="Map" resultMap="BaseResultMap">
+    select * from book
+    <where>
+      <if test="keyword != null">
+        name like concat('%',#{keyword},'%') OR pinyin like concat('%',#{keyword},'%') OR pinyin_abbr like concat('%',#{keyword},'%')
+      </if>
+    </where>
+  </select>
+</mapper>

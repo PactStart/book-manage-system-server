@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.github.zhuyajie666.bookmanagesystem.dao.ManagerMapper">
+  <resultMap id="BaseResultMap" type="io.github.zhuyajie666.bookmanagesystem.entity.Manager">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone" jdbcType="CHAR" property="phone" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="creat_at" jdbcType="TIMESTAMP" property="creatAt" />
+    <result column="update_at" jdbcType="TIMESTAMP" property="updateAt" />
+    <result column="del" jdbcType="BIT" property="del"/>
+  </resultMap>
+</mapper>
