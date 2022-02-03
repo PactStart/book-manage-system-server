@@ -20,13 +20,15 @@ public class CustomHttpInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token = request.getHeader("token");
-        if(token == null) {
-            throw new AppException(ResponseCode.NOT_YET_LOGIN);
-        }
-        Manager manager = tokenManager.getByToken(token);
-        if(manager == null) {
-            throw new AppException(ResponseCode.NOT_YET_LOGIN);
+        if(!request.getRequestURI().equals("/manager/login")) {
+            String token = request.getHeader("token");
+            if(token == null) {
+                throw new AppException(ResponseCode.NOT_YET_LOGIN);
+            }
+            Manager manager = tokenManager.getByToken(token);
+            if(manager == null) {
+                throw new AppException(ResponseCode.NOT_YET_LOGIN);
+            }
         }
         return true;
     }
