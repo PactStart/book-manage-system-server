@@ -11,6 +11,7 @@ import io.github.zhuyajie666.bookmanagesystem.form.ManagerQueryForm;
 import io.github.zhuyajie666.bookmanagesystem.form.ManagerSaveForm;
 import io.github.zhuyajie666.bookmanagesystem.service.ManagerService;
 import io.github.zhuyajie666.bookmanagesystem.utils.MapperUtils;
+import io.github.zhuyajie666.bookmanagesystem.vo.ManagerVo;
 import io.github.zhuyajie666.bookmanagesystem.vo.PageResult;
 import io.github.zhuyajie666.bookmanagesystem.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,7 @@ public class ManagerController {
     @RequestMapping("/query")
     public ResponseCode query(@RequestBody ManagerQueryForm managerQueryForm) {
         ManagerQueryDto managerQueryDto = MapperUtils.map(managerQueryForm, ManagerQueryDto.class);
-        PageResult<UserVo> pageResult = managerService.query(managerQueryDto);
+        PageResult<ManagerVo> pageResult = managerService.query(managerQueryDto);
         return ResponseCode.build(pageResult);
     }
 

@@ -13,4 +13,13 @@
     <result column="update_at" jdbcType="TIMESTAMP" property="updateAt" />
     <result column="del" jdbcType="BIT" property="del"/>
   </resultMap>
+
+  <select id="query" parameterType="Map" resultMap="BaseResultMap">
+    select * from manager
+    <where>
+      <if test="keyword != null">
+        AND phone = #{keyword} OR email = #{keyword}
+      </if>
+    </where>
+  </select>
 </mapper>

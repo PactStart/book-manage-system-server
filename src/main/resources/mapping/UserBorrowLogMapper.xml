@@ -16,4 +16,25 @@
     <result column="over_days" jdbcType="INTEGER" property="overDays" />
     <result column="fine" jdbcType="DECIMAL" property="fine" />
   </resultMap>
+
+  <select id="query" parameterType="Map" resultMap="BaseResultMap">
+    select * from user_borrow_log
+    <where>
+      <if test="bookId != null">
+        AND book_id = #{bookId}
+      </if>
+      <if test="isbn != null">
+        AND isbn = #{isbn}
+      </if>
+      <if test="userId != null">
+        AND user_id = #{userId}
+      </if>
+      <if test="overdue == true">
+        AND over_days > 0
+      </if>
+      <if test="overdue == false">
+        AND over_days = 0
+      </if>
+    </where>
+  </select>
 </mapper>

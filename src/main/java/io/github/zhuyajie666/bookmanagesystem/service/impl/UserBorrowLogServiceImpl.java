@@ -9,6 +9,7 @@ import io.github.zhuyajie666.bookmanagesystem.service.UserBorrowLogService;
 import io.github.zhuyajie666.bookmanagesystem.utils.BeanMapUtils;
 import io.github.zhuyajie666.bookmanagesystem.utils.PageUtils;
 import io.github.zhuyajie666.bookmanagesystem.vo.PageResult;
+import io.github.zhuyajie666.bookmanagesystem.vo.UserBorrowLogVo;
 import io.github.zhuyajie666.bookmanagesystem.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,11 +30,11 @@ public class UserBorrowLogServiceImpl implements UserBorrowLogService {
     }
 
     @Override
-    public PageResult<UserVo> query(UserBorrowLogQueryDto userBorrowLogQueryDto) {
+    public PageResult<UserBorrowLogVo> query(UserBorrowLogQueryDto userBorrowLogQueryDto) {
         Map<String, Object> condition = BeanMapUtils.beanToMap(userBorrowLogQueryDto);
         Page<UserBorrowLog> page = PageHelper.startPage(userBorrowLogQueryDto.getPageNum(),userBorrowLogQueryDto.getPageSize())
                 .doSelectPage( () -> userBorrowLogMapper.query(condition));
-        return PageUtils.convert(page,UserVo.class);
+        return PageUtils.convert(page,UserBorrowLogVo.class);
     }
 
     @Override

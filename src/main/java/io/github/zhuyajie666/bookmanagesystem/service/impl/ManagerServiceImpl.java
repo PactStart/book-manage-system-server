@@ -11,6 +11,7 @@ import io.github.zhuyajie666.bookmanagesystem.exception.AppException;
 import io.github.zhuyajie666.bookmanagesystem.service.ManagerService;
 import io.github.zhuyajie666.bookmanagesystem.utils.BeanMapUtils;
 import io.github.zhuyajie666.bookmanagesystem.utils.PageUtils;
+import io.github.zhuyajie666.bookmanagesystem.vo.ManagerVo;
 import io.github.zhuyajie666.bookmanagesystem.vo.PageResult;
 import io.github.zhuyajie666.bookmanagesystem.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,10 +68,10 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public PageResult<UserVo> query(ManagerQueryDto managerQueryDto) {
+    public PageResult<ManagerVo> query(ManagerQueryDto managerQueryDto) {
         Map<String, Object> condition = BeanMapUtils.beanToMap(managerQueryDto);
-        Page<User> page = PageHelper.startPage(managerQueryDto.getPageNum(),managerQueryDto.getPageSize())
+        Page<Manager> page = PageHelper.startPage(managerQueryDto.getPageNum(),managerQueryDto.getPageSize())
                 .doSelectPage( () -> managerMapper.query(condition));
-        return PageUtils.convert(page,UserVo.class);
+        return PageUtils.convert(page,ManagerVo.class);
     }
 }
