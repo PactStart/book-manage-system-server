@@ -12,6 +12,7 @@ import io.github.zhuyajie666.bookmanagesystem.service.UserBorrowLogService;
 import io.github.zhuyajie666.bookmanagesystem.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -42,6 +43,7 @@ public class BookAssembleServiceImpl implements BookAssembleService {
         categoryService.delete(categoryId);
     }
 
+    @Transactional
     @Override
     public void borrow(BookBorrowDto bookBorrowDto) {
         Book book = bookService.getByIsbn(bookBorrowDto.getIsbn());
@@ -75,12 +77,12 @@ public class BookAssembleServiceImpl implements BookAssembleService {
         if (userBorrowLog == null) {
             throw new AppException(ResponseCode.BOOK_BORROW_LOG_NOT_EXIST);
         }
-        LocalDate expectReturnBackTime = DateUtils.convert2LocalDate(userBorrowLog.getBorrowAt()).plusDays(userBorrowLog.getBorrowDays());
+        LocalDate deadLineReturnBackTime = DateUtils.convert2LocalDate(userBorrowLog.getBorrowAt()).plusDays(userBorrowLog.getBorrowDays());
         LocalDate currentDate = LocalDate.now();
         userBorrowLog.setIsReturn(true);
         userBorrowLog.setReturnAt(new Date());
-        if (currentDate.isAfter(expectReturnBackTime)) {
-            int days = (int) DAYS.between(expectReturnBackTime, currentDate);
+        if (currentDate.isAfter(deadLineReturnBackTime)) {
+            int days = (int) DAYS.between(deadLineReturnBackTime, currentDate);
             days = Math.abs(days);
             userBorrowLog.setFine(BASE_PRICE.multiply(new BigDecimal(days)));
         }

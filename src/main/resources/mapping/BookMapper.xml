@@ -19,7 +19,6 @@
     <result column="create_by" jdbcType="INTEGER" property="createBy" />
     <result column="update_at" jdbcType="TIMESTAMP" property="updateAt" />
     <result column="update_by" jdbcType="INTEGER" property="updateBy" />
-    <result column="isbn" jdbcType="INTEGER" property="isbn" />
     <result column="del" jdbcType="BIT" property="del" />
   </resultMap>
 

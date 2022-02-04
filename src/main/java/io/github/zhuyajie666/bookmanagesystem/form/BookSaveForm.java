@@ -65,4 +65,7 @@ public class BookSaveForm {
         this.categoryId = categoryId;
     }
 
+    public String getAuthor() {
+        return author;
+    }
 }

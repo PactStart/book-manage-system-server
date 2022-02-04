@@ -80,11 +80,6 @@ public class Book {
     @Column(name = "update_by")
     private Integer updateBy;
 
-    /**
-     * 条形码
-     */
-    private Integer isbn;
-
     private Boolean del;
 
     /**
@@ -279,24 +274,6 @@ public class Book {
      */
     public void setUpdateBy(Integer updateBy) {
         this.updateBy = updateBy;
-    }
-
-    /**
-     * 获取条形码
-     *
-     * @return isbn - 条形码
-     */
-    public Integer getIsbn() {
-        return isbn;
-    }
-
-    /**
-     * 设置条形码
-     *
-     * @param isbn 条形码
-     */
-    public void setIsbn(Integer isbn) {
-        this.isbn = isbn;
     }
 
     public Boolean getDel() {

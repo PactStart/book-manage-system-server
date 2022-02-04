@@ -42,6 +42,7 @@ public class BookServiceImpl implements BookService {
         book.setPinyinAbbr(PinyinUtils.getFirstPinYin(book.getName()));
         book.setCreateAt(new Date());
         book.setUpdateAt(new Date());
+        book.setDel(false);
         bookMapper.insert(book);
     }
     @Override
