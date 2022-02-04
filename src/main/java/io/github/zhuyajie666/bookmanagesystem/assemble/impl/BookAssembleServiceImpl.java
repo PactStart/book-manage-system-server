@@ -53,6 +53,14 @@ public class BookAssembleServiceImpl implements BookAssembleService {
         if (book.getRemainInventory() <= 0) {
             throw new AppException(ResponseCode.BOOK_INVENTORY_NOT_ENOUGH);
         }
+        boolean isBorrowed = bookService.isBorrowed(bookBorrowDto.getIsbn());
+        if(isBorrowed) {
+            throw new AppException(ResponseCode.BOOK_HAS_BEEN_BORROWED);
+        }
+        boolean flag = bookService.borrow(bookBorrowDto.getIsbn());
+        if(!flag) {
+            throw new AppException(ResponseCode.BOOK_HAS_BEEN_BORROWED);
+        }
         boolean success = bookService.subtractInventory(book.getId(), 1);
         if (!success) {
             throw new AppException(ResponseCode.BOOK_INVENTORY_NOT_ENOUGH);
@@ -71,11 +79,16 @@ public class BookAssembleServiceImpl implements BookAssembleService {
 
     }
 
+    @Transactional
     @Override
     public void returnBack(Integer userId, String isbn) {
         UserBorrowLog userBorrowLog = userBorrowLogService.getNotYetReturnBackLog(userId, isbn);
         if (userBorrowLog == null) {
             throw new AppException(ResponseCode.BOOK_BORROW_LOG_NOT_EXIST);
+        }
+        boolean flag = bookService.returnBack(isbn);
+        if(!flag) {
+            throw new AppException(ResponseCode.BOOK_RETURN_BACK_FAIL);
         }
         LocalDate deadLineReturnBackTime = DateUtils.convert2LocalDate(userBorrowLog.getBorrowAt()).plusDays(userBorrowLog.getBorrowDays());
         LocalDate currentDate = LocalDate.now();

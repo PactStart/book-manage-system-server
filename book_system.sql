@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50737
 File Encoding         : 65001
 
-Date: 2022-02-04 20:07:02
+Date: 2022-02-04 20:51:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -45,6 +45,7 @@ DROP TABLE IF EXISTS `book_isbn`;
 CREATE TABLE `book_isbn` (
   `isbn` varchar(16) NOT NULL COMMENT '国际标准书号',
   `book_id` int(11) NOT NULL COMMENT '书的id',
+  `is_borrowed` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否借出',
   PRIMARY KEY (`isbn`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -73,7 +74,7 @@ CREATE TABLE `manager` (
   `update_at` datetime NOT NULL COMMENT '更新日期',
   `del` bit(1) NOT NULL DEFAULT b'0' COMMENT '删除标记',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='管理员';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='管理员';
 
 -- ----------------------------
 -- Table structure for user
@@ -106,4 +107,4 @@ CREATE TABLE `user_borrow_log` (
   `over_days` int(11) NOT NULL COMMENT '截止日期',
   `fine` decimal(10,1) NOT NULL COMMENT '罚金',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='用户借书记录';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='用户借书记录';

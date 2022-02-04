@@ -16,7 +16,6 @@ import io.github.zhuyajie666.bookmanagesystem.utils.PageUtils;
 import io.github.zhuyajie666.bookmanagesystem.utils.PinyinUtils;
 import io.github.zhuyajie666.bookmanagesystem.vo.BookVo;
 import io.github.zhuyajie666.bookmanagesystem.vo.PageResult;
-import io.github.zhuyajie666.bookmanagesystem.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -114,5 +113,24 @@ public class BookServiceImpl implements BookService {
         });
         bookIsbnMapper.insertList(bookIsbnList);
         bookMapper.addInventory(bookId, isbnList.size());
+    }
+
+    @Override
+    public boolean isBorrowed(String isbn) {
+        BookIsbn bookIsbn = bookIsbnMapper.selectByPrimaryKey(isbn);
+        return bookIsbn.getBorrowed();
+    }
+
+    @Override
+    public boolean borrow(String isbn) {
+        int row = bookIsbnMapper.updateIsBorrowed2True(isbn);
+        return row > 0;
+    }
+
+    @Override
+    public boolean returnBack(String isbn) {
+        int row = bookIsbnMapper.updateIsBorrowed2False(isbn);
+        return row > 0;
+
     }
 }

@@ -17,6 +17,12 @@ public class BookIsbn {
     private Integer bookId;
 
     /**
+     * 是否借出
+     */
+    @Column(name = "is_borrowed")
+    private Boolean isBorrowed;
+
+    /**
      * 获取国际标准书号
      *
      * @return isbn - 国际标准书号
@@ -50,5 +56,13 @@ public class BookIsbn {
      */
     public void setBookId(Integer bookId) {
         this.bookId = bookId;
+    }
+
+    public Boolean getBorrowed() {
+        return isBorrowed;
+    }
+
+    public void setBorrowed(Boolean borrowed) {
+        isBorrowed = borrowed;
     }
 }

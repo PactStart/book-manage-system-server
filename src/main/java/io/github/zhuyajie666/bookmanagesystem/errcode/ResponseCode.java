@@ -20,6 +20,8 @@ public class ResponseCode<T> {
     public static final ResponseCode ACCOUNT_NOT_EXIST = new ResponseCode(1006,"account don't exist");
     public static final ResponseCode PASSWORD_INCORRECT = new ResponseCode(1007,"password is incorrect");
     public static final ResponseCode NOT_YET_LOGIN = new ResponseCode(1008,"not login yet");
+    public static final ResponseCode BOOK_HAS_BEEN_BORROWED = new ResponseCode(1009,"book has been borrowed");
+    public static final ResponseCode BOOK_RETURN_BACK_FAIL = new ResponseCode(1010,"book return back fail");
 
 
 

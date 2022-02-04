@@ -7,5 +7,7 @@
     -->
     <id column="isbn" jdbcType="VARCHAR" property="isbn" />
     <result column="book_id" jdbcType="INTEGER" property="bookId" />
+    <result column="is_borrowed" jdbcType="BIT" property="isBorrowed" />
+
   </resultMap>
 </mapper>

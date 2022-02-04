@@ -28,4 +28,9 @@ public interface BookService {
 
     void addInventory(Integer bookId, List<String> isbnList);
 
+    boolean isBorrowed(String isbn);
+
+    boolean borrow(String isbn);
+
+    boolean returnBack(String isbn);
 }
