@@ -2,13 +2,23 @@ package io.github.zhuyajie666.bookmanagesystem.dto;
 
 public class UserQueryDto extends PageQueryDto{
 
-    private String keyword;
+    private String phone;
 
-    public String getKeyword() {
-        return keyword;
+    private String email;
+
+    public String getPhone() {
+        return phone;
     }
 
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

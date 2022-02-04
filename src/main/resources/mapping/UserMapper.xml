@@ -18,8 +18,11 @@
         select * from user
         <where>
             del = 0
-            <if test="keyword != null">
-                AND phone = #{keyword} OR email = #{keyword}
+            <if test="phone != null">
+                AND phone = #{phone}
+            </if>
+            <if test="email != null">
+                AND email = #{email}
             </if>
         </where>
     </select>

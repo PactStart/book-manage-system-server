@@ -109,6 +109,7 @@ public class BookServiceImpl implements BookService {
             BookIsbn bookIsbn = new BookIsbn();
             bookIsbn.setBookId(bookId);
             bookIsbn.setIsbn(isbn);
+            bookIsbn.setBorrowed(false);
             bookIsbnList.add(bookIsbn);
         });
         bookIsbnMapper.insertList(bookIsbnList);

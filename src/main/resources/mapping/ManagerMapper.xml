@@ -17,8 +17,12 @@
   <select id="query" parameterType="Map" resultMap="BaseResultMap">
     select * from manager
     <where>
-      <if test="keyword != null">
-        AND phone = #{keyword} OR email = #{keyword}
+      del = 0
+      <if test="phone != null">
+        AND phone = #{phone}
+      </if>
+      <if test="email != null">
+        AND email = #{email}
       </if>
     </where>
   </select>
