@@ -9,7 +9,7 @@
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="phone" jdbcType="CHAR" property="phone" />
     <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="creat_at" jdbcType="TIMESTAMP" property="creatAt" />
+    <result column="create_at" jdbcType="TIMESTAMP" property="createAt" />
     <result column="update_at" jdbcType="TIMESTAMP" property="updateAt" />
     <result column="del" jdbcType="BIT" property="del"/>
   </resultMap>

@@ -27,8 +27,8 @@ public class Manager {
     /**
      * 创建日期
      */
-    @Column(name = "creat_at")
-    private Date creatAt;
+    @Column(name = "create_at")
+    private Date createAt;
 
     /**
      * 更新日期
@@ -111,17 +111,17 @@ public class Manager {
      *
      * @return creat_at - 创建日期
      */
-    public Date getCreatAt() {
-        return creatAt;
+    public Date getCreateAt() {
+        return createAt;
     }
 
     /**
      * 设置创建日期
      *
-     * @param creatAt 创建日期
+     * @param createAt 创建日期
      */
-    public void setCreatAt(Date creatAt) {
-        this.creatAt = creatAt;
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
     }
 
     /**
@@ -140,9 +140,6 @@ public class Manager {
      */
     public void setUpdateAt(Date updateAt) {
         this.updateAt = updateAt;
-    }
-
-    public void setCreateAt(Date date) {
     }
 
     public Boolean getDel() {

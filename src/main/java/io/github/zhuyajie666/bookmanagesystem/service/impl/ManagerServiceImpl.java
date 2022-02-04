@@ -38,6 +38,7 @@ public class ManagerServiceImpl implements ManagerService {
 
         manager.setCreateAt(new Date());
         manager.setUpdateAt(new Date());
+        manager.setDel(false);
         managerMapper.insert(manager);
     }
 
