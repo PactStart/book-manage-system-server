@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50737
 File Encoding         : 65001
 
-Date: 2022-02-04 14:40:07
+Date: 2022-02-04 20:07:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -36,7 +36,7 @@ CREATE TABLE `book` (
   `update_by` int(11) NOT NULL COMMENT '更新者',
   `del` bit(1) NOT NULL DEFAULT b'0' COMMENT '删除标记',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='书籍';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='书籍';
 
 -- ----------------------------
 -- Table structure for book_isbn
@@ -58,7 +58,7 @@ CREATE TABLE `category` (
   `sort` int(11) NOT NULL DEFAULT '0' COMMENT '排序',
   `pid` int(11) NOT NULL DEFAULT '0' COMMENT '父类id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='图书分类';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='图书分类';
 
 -- ----------------------------
 -- Table structure for manager
@@ -69,7 +69,7 @@ CREATE TABLE `manager` (
   `email` varchar(100) NOT NULL COMMENT '邮箱',
   `phone` char(11) NOT NULL COMMENT '电话',
   `password` varchar(20) NOT NULL COMMENT '密码',
-  `creat_at` datetime NOT NULL COMMENT '创建日期',
+  `create_at` datetime NOT NULL COMMENT '创建日期',
   `update_at` datetime NOT NULL COMMENT '更新日期',
   `del` bit(1) NOT NULL DEFAULT b'0' COMMENT '删除标记',
   PRIMARY KEY (`id`)
@@ -106,4 +106,4 @@ CREATE TABLE `user_borrow_log` (
   `over_days` int(11) NOT NULL COMMENT '截止日期',
   `fine` decimal(10,1) NOT NULL COMMENT '罚金',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户借书记录';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='用户借书记录';

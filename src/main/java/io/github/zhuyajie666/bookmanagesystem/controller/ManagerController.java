@@ -48,8 +48,8 @@ public class ManagerController {
     }
 
     @RequestMapping("/add")
-    public ResponseCode add(@RequestBody ManagerSaveForm userSaveForm) {
-        Manager manager = MapperUtils.map(userSaveForm,Manager.class);
+    public ResponseCode add(@RequestBody ManagerSaveForm managerSaveForm) {
+        Manager manager = MapperUtils.map(managerSaveForm,Manager.class);
         managerService.add(manager);
         return ResponseCode.SUCCESS;
     }
