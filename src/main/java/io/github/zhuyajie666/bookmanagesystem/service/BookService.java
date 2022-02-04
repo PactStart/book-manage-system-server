@@ -16,7 +16,7 @@ public interface BookService {
 
     void delete(Integer id);
 
-    PageResult<UserVo> query(BookQueryDto bookQueryDto);
+    PageResult<BookVo> query(BookQueryDto bookQueryDto);
 
     int countByCategoryId(Integer categoryId);
 

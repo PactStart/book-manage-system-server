@@ -56,11 +56,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public PageResult<UserVo> query(BookQueryDto bookQueryDto) {
+    public PageResult<BookVo> query(BookQueryDto bookQueryDto) {
         Map<String, Object> condition = BeanMapUtils.beanToMap(bookQueryDto);
         Page<BookService> page = PageHelper.startPage(bookQueryDto.getPageNum(),bookQueryDto.getPageSize())
                 .doSelectPage( () -> bookMapper.query(condition));
-        return PageUtils.convert(page,UserVo.class);
+        return PageUtils.convert(page,BookVo.class);
     }
 
     @Override

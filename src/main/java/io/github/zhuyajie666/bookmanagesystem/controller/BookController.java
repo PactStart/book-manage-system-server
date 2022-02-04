@@ -62,7 +62,7 @@ public class BookController {
     @RequestMapping("/query")
     public ResponseCode query(@RequestBody BookQueryForm bookQueryForm) {
         BookQueryDto bookQueryDto = MapperUtils.map(bookQueryForm, BookQueryDto.class);
-        PageResult<UserVo> pageResult = bookService.query(bookQueryDto);
+        PageResult<BookVo> pageResult = bookService.query(bookQueryDto);
         return ResponseCode.build(pageResult);
     }
 
