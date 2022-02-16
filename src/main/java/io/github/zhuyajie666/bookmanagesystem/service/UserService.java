@@ -13,12 +13,16 @@ public interface UserService {
 
     void delete(Integer id);
 
-    User findById(Integer id);
+    User getById(Integer id);
+
+    UserVo findById(Integer id);
 
     User findByPhone(String phone);
 
     User findByEmail(String email);
 
     PageResult<UserVo> query(UserQueryDto userQueryDto);
+
+    int count();
 
 }

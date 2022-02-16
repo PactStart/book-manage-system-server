@@ -5,6 +5,8 @@ public class UserSaveForm {
 
     private Integer id;
 
+    private String name;
+
     /**
      * 邮箱
      */
@@ -26,6 +28,14 @@ public class UserSaveForm {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

@@ -17,6 +17,12 @@ public class UserBorrowLog {
     private Integer userId;
 
     /**
+     * 用户名
+     */
+    @Column(name = "user_name")
+    private String userName;
+
+    /**
      * 书籍id
      */
     @Column(name = "book_id")
@@ -92,6 +98,14 @@ public class UserBorrowLog {
      */
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     /**

@@ -6,7 +6,7 @@ public class ResponseCode<T> {
 
     private String message;
 
-    private T data;
+    private T result;
 
     public static final ResponseCode SUCCESS = new ResponseCode(200,"success");
     public static final ResponseCode SYSTEM_BUSY = new ResponseCode(500,"success");
@@ -22,7 +22,8 @@ public class ResponseCode<T> {
     public static final ResponseCode NOT_YET_LOGIN = new ResponseCode(1008,"not login yet");
     public static final ResponseCode BOOK_HAS_BEEN_BORROWED = new ResponseCode(1009,"book has been borrowed");
     public static final ResponseCode BOOK_RETURN_BACK_FAIL = new ResponseCode(1010,"book return back fail");
-
+    public static final ResponseCode EXIST_BORROWING_RECORD = new ResponseCode(1011,"exist borrowing record");
+    public static final ResponseCode USER_NOT_EXIST = new ResponseCode(1012,"user don't exit");
 
 
     public ResponseCode(int code, String message) {
@@ -30,9 +31,9 @@ public class ResponseCode<T> {
         this.message = message;
     }
 
-    public static <T> ResponseCode build(T data) {
+    public static <T> ResponseCode build(T result) {
         ResponseCode responseCode = new ResponseCode(ResponseCode.SUCCESS.getCode(),ResponseCode.SUCCESS.getMessage());
-        responseCode.setData(data);
+        responseCode.setResult(result);
         return responseCode;
     }
 
@@ -44,12 +45,12 @@ public class ResponseCode<T> {
         return message;
     }
 
-    public T getData() {
-        return data;
+    public T getResult() {
+        return result;
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public void setResult(T result) {
+        this.result = result;
     }
 
     public boolean isOk() {

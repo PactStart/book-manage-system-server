@@ -1,5 +1,7 @@
 package io.github.zhuyajie666.bookmanagesystem.vo;
 
+import java.util.List;
+
 public class CategoryVo {
     /**
      * 分类id
@@ -20,6 +22,8 @@ public class CategoryVo {
      * 父类id
      */
     private Integer pid;
+
+    private List<CategoryVo> children;
 
     /**
      * 获取分类id
@@ -91,5 +95,13 @@ public class CategoryVo {
      */
     public void setPid(Integer pid) {
         this.pid = pid;
+    }
+
+    public List<CategoryVo> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<CategoryVo> children) {
+        this.children = children;
     }
 }

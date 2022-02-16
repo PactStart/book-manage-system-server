@@ -4,6 +4,8 @@ public class ManagerSaveForm {
 
     private Integer id;
 
+    private String name;
+
     /**
      * 邮箱
      */
@@ -50,4 +52,13 @@ public class ManagerSaveForm {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }

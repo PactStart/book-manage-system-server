@@ -1,6 +1,7 @@
 package io.github.zhuyajie666.bookmanagesystem.dao;
 
 import io.github.zhuyajie666.bookmanagesystem.entity.Book;
+import io.github.zhuyajie666.bookmanagesystem.entity.model.BookCount;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -24,4 +25,6 @@ public interface BookMapper extends Mapper<Book> {
 
     @Update("update book set inventory = inventory + #{num}, remain_inventory = remain_inventory + #{num} where id = #{id}")
     void addInventory(@Param("id") Integer id, @Param("num") Integer num);
+
+    BookCount queryStatisticInfo();
 }

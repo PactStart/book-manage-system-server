@@ -5,17 +5,17 @@ import com.github.pagehelper.PageHelper;
 import io.github.zhuyajie666.bookmanagesystem.dao.ManagerMapper;
 import io.github.zhuyajie666.bookmanagesystem.dto.ManagerQueryDto;
 import io.github.zhuyajie666.bookmanagesystem.entity.Manager;
-import io.github.zhuyajie666.bookmanagesystem.entity.User;
 import io.github.zhuyajie666.bookmanagesystem.errcode.ResponseCode;
 import io.github.zhuyajie666.bookmanagesystem.exception.AppException;
 import io.github.zhuyajie666.bookmanagesystem.service.ManagerService;
 import io.github.zhuyajie666.bookmanagesystem.utils.BeanMapUtils;
+import io.github.zhuyajie666.bookmanagesystem.utils.MapperUtils;
 import io.github.zhuyajie666.bookmanagesystem.utils.PageUtils;
 import io.github.zhuyajie666.bookmanagesystem.vo.ManagerVo;
 import io.github.zhuyajie666.bookmanagesystem.vo.PageResult;
-import io.github.zhuyajie666.bookmanagesystem.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 import java.util.Map;
@@ -36,7 +36,9 @@ public class ManagerServiceImpl implements ManagerService {
         if(dbManager != null) {
             throw new AppException(ResponseCode.PHONE_EXIST);
         }
-
+        if(!StringUtils.hasText(manager.getAvatar())) {
+            manager.setAvatar("");
+        }
         manager.setCreateAt(new Date());
         manager.setUpdateAt(new Date());
         manager.setDel(false);
@@ -54,8 +56,9 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public Manager findById(Integer id) {
-        return managerMapper.selectByPrimaryKey(id);
+    public ManagerVo findById(Integer id) {
+        Manager manager = managerMapper.selectByPrimaryKey(id);
+        return MapperUtils.map(manager,ManagerVo.class);
     }
 
     @Override
@@ -73,5 +76,10 @@ public class ManagerServiceImpl implements ManagerService {
         Page<Manager> page = PageHelper.startPage(managerQueryDto.getPageNum(),managerQueryDto.getPageSize())
                 .doSelectPage( () -> managerMapper.query(condition));
         return PageUtils.convert(page,ManagerVo.class);
+    }
+
+    @Override
+    public int count() {
+        return managerMapper.selectUnDelCount();
     }
 }

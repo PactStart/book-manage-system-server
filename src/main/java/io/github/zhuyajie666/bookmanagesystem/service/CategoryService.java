@@ -18,4 +18,8 @@ public interface CategoryService {
     PageResult<CategoryVo> query(CategoryQueryDto categoryQueryDto);
 
     List<CategoryVo> getByPid(Integer pid);
+
+    List<CategoryVo> getCategoryTree();
+
+    CategoryVo getById(Integer id);
 }

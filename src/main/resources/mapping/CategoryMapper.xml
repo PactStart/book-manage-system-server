@@ -14,7 +14,7 @@
   <select id="query" parameterType="Map" resultMap="BaseResultMap">
     select * from category
     <where>
-      <if test="keyword != null">
+      <if test="@Ognl@isNotEmpty(keyword)">
         name like concat('%',#{keyword},'%')
       </if>
     </where>

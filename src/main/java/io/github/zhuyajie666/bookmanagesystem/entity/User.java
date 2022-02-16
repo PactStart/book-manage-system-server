@@ -10,6 +10,11 @@ public class User {
     private Integer id;
 
     /**
+     * 姓名
+     */
+    private String name;
+
+    /**
      * 邮箱
      */
     private String email;
@@ -53,6 +58,14 @@ public class User {
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**

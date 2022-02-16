@@ -12,12 +12,14 @@ public interface ManagerService {
 
     void delete(Integer id);
 
-    Manager findById(Integer id);
+    ManagerVo findById(Integer id);
 
     Manager findByPhone(String phone);
 
     Manager findByEmail(String email);
 
     PageResult<ManagerVo> query(ManagerQueryDto managerQueryDto);
+
+    int count();
 
 }

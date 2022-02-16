@@ -5,6 +5,8 @@ import com.github.pagehelper.PageHelper;
 import io.github.zhuyajie666.bookmanagesystem.dao.UserBorrowLogMapper;
 import io.github.zhuyajie666.bookmanagesystem.dto.UserBorrowLogQueryDto;
 import io.github.zhuyajie666.bookmanagesystem.entity.UserBorrowLog;
+import io.github.zhuyajie666.bookmanagesystem.entity.model.UserBorrowLogCount;
+import io.github.zhuyajie666.bookmanagesystem.entity.model.UserBorrowLogEx;
 import io.github.zhuyajie666.bookmanagesystem.service.UserBorrowLogService;
 import io.github.zhuyajie666.bookmanagesystem.utils.BeanMapUtils;
 import io.github.zhuyajie666.bookmanagesystem.utils.PageUtils;
@@ -32,7 +34,7 @@ public class UserBorrowLogServiceImpl implements UserBorrowLogService {
     @Override
     public PageResult<UserBorrowLogVo> query(UserBorrowLogQueryDto userBorrowLogQueryDto) {
         Map<String, Object> condition = BeanMapUtils.beanToMap(userBorrowLogQueryDto);
-        Page<UserBorrowLog> page = PageHelper.startPage(userBorrowLogQueryDto.getPageNum(),userBorrowLogQueryDto.getPageSize())
+        Page<UserBorrowLogEx> page = PageHelper.startPage(userBorrowLogQueryDto.getPageNum(),userBorrowLogQueryDto.getPageSize())
                 .doSelectPage( () -> userBorrowLogMapper.query(condition));
         return PageUtils.convert(page,UserBorrowLogVo.class);
     }
@@ -50,6 +52,11 @@ public class UserBorrowLogServiceImpl implements UserBorrowLogService {
                 .andEqualTo("isReturn",false);
         List<UserBorrowLog> userBorrowLogs = userBorrowLogMapper.selectByExample(example);
         return userBorrowLogs == null || userBorrowLogs.size() == 0 ? null : userBorrowLogs.get(0);
+    }
+
+    @Override
+    public UserBorrowLogCount count() {
+        return userBorrowLogMapper.queryStatisticInfo();
     }
 
 

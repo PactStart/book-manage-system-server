@@ -3,12 +3,14 @@ package io.github.zhuyajie666.bookmanagesystem.assemble.impl;
 import io.github.zhuyajie666.bookmanagesystem.assemble.BookAssembleService;
 import io.github.zhuyajie666.bookmanagesystem.dto.BookBorrowDto;
 import io.github.zhuyajie666.bookmanagesystem.entity.Book;
+import io.github.zhuyajie666.bookmanagesystem.entity.User;
 import io.github.zhuyajie666.bookmanagesystem.entity.UserBorrowLog;
 import io.github.zhuyajie666.bookmanagesystem.errcode.ResponseCode;
 import io.github.zhuyajie666.bookmanagesystem.exception.AppException;
 import io.github.zhuyajie666.bookmanagesystem.service.BookService;
 import io.github.zhuyajie666.bookmanagesystem.service.CategoryService;
 import io.github.zhuyajie666.bookmanagesystem.service.UserBorrowLogService;
+import io.github.zhuyajie666.bookmanagesystem.service.UserService;
 import io.github.zhuyajie666.bookmanagesystem.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,9 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
 public class BookAssembleServiceImpl implements BookAssembleService {
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private BookService bookService;
@@ -46,6 +51,10 @@ public class BookAssembleServiceImpl implements BookAssembleService {
     @Transactional
     @Override
     public void borrow(BookBorrowDto bookBorrowDto) {
+        User user = userService.getById(bookBorrowDto.getUserId());
+        if(user == null || user.getDel()) {
+            throw new AppException(ResponseCode.USER_NOT_EXIST);
+        }
         Book book = bookService.getByIsbn(bookBorrowDto.getIsbn());
         if (book == null || book.getDel()) {
             throw new AppException(ResponseCode.BOOK_NOT_EXIST);
@@ -67,6 +76,7 @@ public class BookAssembleServiceImpl implements BookAssembleService {
         }
         UserBorrowLog userBorrowLog = new UserBorrowLog();
         userBorrowLog.setUserId(bookBorrowDto.getUserId());
+        userBorrowLog.setUserName(user.getName());
         userBorrowLog.setBookId(book.getId());
         userBorrowLog.setIsbn(bookBorrowDto.getIsbn());
         userBorrowLog.setBorrowAt(new Date());

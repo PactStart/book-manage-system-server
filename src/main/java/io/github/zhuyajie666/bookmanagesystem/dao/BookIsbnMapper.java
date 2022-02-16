@@ -8,6 +8,7 @@ import tk.mybatis.mapper.additional.insert.InsertListMapper;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 public interface BookIsbnMapper extends Mapper<BookIsbn>, InsertListMapper<BookIsbn> {
 
@@ -19,4 +20,6 @@ public interface BookIsbnMapper extends Mapper<BookIsbn>, InsertListMapper<BookI
 
     @Update("update book_isbn set is_borrowed = false where isbn =#{isbn} and is_borrowed = true")
     int updateIsBorrowed2False(@Param("isbn")String isbn);
+
+    List<BookIsbn> query(Map<String, Object> condition);
 }

@@ -3,6 +3,7 @@ package io.github.zhuyajie666.bookmanagesystem.controller;
 import io.github.zhuyajie666.bookmanagesystem.assemble.BookAssembleService;
 import io.github.zhuyajie666.bookmanagesystem.component.TokenManager;
 import io.github.zhuyajie666.bookmanagesystem.dto.BookBorrowDto;
+import io.github.zhuyajie666.bookmanagesystem.dto.BookIsbnQueryDto;
 import io.github.zhuyajie666.bookmanagesystem.dto.BookQueryDto;
 import io.github.zhuyajie666.bookmanagesystem.entity.Book;
 import io.github.zhuyajie666.bookmanagesystem.entity.Manager;
@@ -10,15 +11,14 @@ import io.github.zhuyajie666.bookmanagesystem.errcode.ResponseCode;
 import io.github.zhuyajie666.bookmanagesystem.form.*;
 import io.github.zhuyajie666.bookmanagesystem.service.BookService;
 import io.github.zhuyajie666.bookmanagesystem.utils.MapperUtils;
-import io.github.zhuyajie666.bookmanagesystem.vo.BookVo;
-import io.github.zhuyajie666.bookmanagesystem.vo.PageResult;
-import io.github.zhuyajie666.bookmanagesystem.vo.UserVo;
+import io.github.zhuyajie666.bookmanagesystem.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @SuppressWarnings("ALL")
 @RestController
@@ -37,13 +37,19 @@ public class BookController {
     @RequestMapping("/add")
     public ResponseCode add(@RequestBody BookSaveForm bookSaveForm, HttpServletRequest request) {
         Book book = MapperUtils.map(bookSaveForm, Book.class);
-        book.setInventory(0);
-        book.setRemainInventory(0);
-
-        Manager manager = tokenManager.getByToken(request.getHeader("token"));
+        ManagerVo manager = tokenManager.getByToken(request.getHeader("token"));
         book.setCreateBy(manager.getId());
         book.setUpdateBy(manager.getId());
         bookService.add(book);
+        return ResponseCode.SUCCESS;
+    }
+
+    @RequestMapping("/update")
+    public ResponseCode update(@RequestBody BookSaveForm bookSaveForm, HttpServletRequest request) {
+        Book book = MapperUtils.map(bookSaveForm, Book.class);
+        ManagerVo manager = tokenManager.getByToken(request.getHeader("token"));
+        book.setUpdateBy(manager.getId());
+        bookService.update(book);
         return ResponseCode.SUCCESS;
     }
 
@@ -70,6 +76,13 @@ public class BookController {
     public ResponseCode delete(@RequestBody IdForm idForm) {
         bookService.delete(idForm.getId());
         return ResponseCode.SUCCESS;
+    }
+
+    @RequestMapping("/queryBookIsbn")
+    public ResponseCode queryBookIsbn(@RequestBody BookIsbnQueryForm bookIsbnQueryForm) {
+        BookIsbnQueryDto bookIsbnQueryDto = MapperUtils.map(bookIsbnQueryForm, BookIsbnQueryDto.class);
+        PageResult<BookIsbnVo> pageResult = bookService.queryBookIsbn(bookIsbnQueryDto);
+        return ResponseCode.build(pageResult);
     }
 
     @RequestMapping("/borrow")

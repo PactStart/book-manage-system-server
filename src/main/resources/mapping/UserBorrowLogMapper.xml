@@ -7,6 +7,7 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="book_id" jdbcType="INTEGER" property="bookId" />
     <result column="isbn" jdbcType="VARCHAR" property="isbn" />
     <result column="borrow_at" jdbcType="TIMESTAMP" property="borrowAt" />
@@ -17,17 +18,41 @@
     <result column="fine" jdbcType="DECIMAL" property="fine" />
   </resultMap>
 
-  <select id="query" parameterType="Map" resultMap="BaseResultMap">
-    select * from user_borrow_log
+  <resultMap id="BaseResultMapWithBook" type="io.github.zhuyajie666.bookmanagesystem.entity.model.UserBorrowLogEx">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="book_id" jdbcType="INTEGER" property="bookId" />
+    <result column="isbn" jdbcType="VARCHAR" property="isbn" />
+    <result column="borrow_at" jdbcType="TIMESTAMP" property="borrowAt" />
+    <result column="borrow_days" jdbcType="INTEGER" property="borrowDays" />
+    <result column="is_return" jdbcType="BIT" property="isReturn" />
+    <result column="return_at" jdbcType="TIMESTAMP" property="returnAt" />
+    <result column="over_days" jdbcType="INTEGER" property="overDays" />
+    <result column="fine" jdbcType="DECIMAL" property="fine" />
+    <!-- book info -->
+    <result column="url" jdbcType="VARCHAR" property="url"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="pinyin" jdbcType="VARCHAR" property="pinyin"/>
+    <result column="pinyin_abbr" jdbcType="VARCHAR" property="pinyinAbbr"/>
+    <result column="author" jdbcType="VARCHAR" property="author"/>
+    <result column="pub" jdbcType="VARCHAR" property="pub"/>
+  </resultMap>
+
+  <select id="query" parameterType="Map" resultMap="BaseResultMapWithBook">
+    select t1.*,t2.url,t2.name,t2.pinyin,t2.pinyin_abbr,t2.author,t2.pub from user_borrow_log t1 join book t2 on t1.book_id = t2.id
     <where>
       <if test="bookId != null">
         AND book_id = #{bookId}
       </if>
-      <if test="isbn != null">
+      <if test="@Ognl@isNotEmpty(isbn)">
         AND isbn = #{isbn}
       </if>
       <if test="userId != null">
         AND user_id = #{userId}
+      </if>
+      <if test="isReturn != null">
+        AND is_return = #{isReturn}
       </if>
       <if test="overdue == true">
         AND over_days > 0
@@ -36,5 +61,11 @@
         AND over_days = 0
       </if>
     </where>
+  </select>
+
+  <select id="queryStatisticInfo" resultType="io.github.zhuyajie666.bookmanagesystem.entity.model.UserBorrowLogCount" >
+    select count(1) as total, count(distinct(user_id)) as borrow_user_count, count(distinct(book_id)) as borrow_book_count,
+           sum(if(is_return = false,1,0)) as borrowing_count, sum(fine) as total_fine
+    from user_borrow_log
   </select>
 </mapper>

@@ -6,6 +6,8 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="phone" jdbcType="CHAR" property="phone" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -18,10 +20,10 @@
     select * from manager
     <where>
       del = 0
-      <if test="phone != null">
+      <if test="@Ognl@isNotEmpty(phone)">
         AND phone = #{phone}
       </if>
-      <if test="email != null">
+      <if test="@Ognl@isNotEmpty(email)">
         AND email = #{email}
       </if>
     </where>

@@ -9,6 +9,7 @@ import io.github.zhuyajie666.bookmanagesystem.errcode.ResponseCode;
 import io.github.zhuyajie666.bookmanagesystem.exception.AppException;
 import io.github.zhuyajie666.bookmanagesystem.service.UserService;
 import io.github.zhuyajie666.bookmanagesystem.utils.BeanMapUtils;
+import io.github.zhuyajie666.bookmanagesystem.utils.MapperUtils;
 import io.github.zhuyajie666.bookmanagesystem.utils.PageUtils;
 import io.github.zhuyajie666.bookmanagesystem.vo.PageResult;
 import io.github.zhuyajie666.bookmanagesystem.vo.UserVo;
@@ -53,8 +54,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Integer id) {
+    public User getById(Integer id) {
         return userMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public UserVo findById(Integer id) {
+        User user = userMapper.selectByPrimaryKey(id);
+        return MapperUtils.map(user,UserVo.class);
     }
 
     @Override
@@ -73,6 +80,11 @@ public class UserServiceImpl implements UserService {
         Page<User> page = PageHelper.startPage(userQueryDto.getPageNum(),userQueryDto.getPageSize())
                 .doSelectPage( () -> userMapper.query(condition));
         return PageUtils.convert(page,UserVo.class);
+    }
+
+    @Override
+    public int count() {
+        return userMapper.selectUnDelCount();
     }
 
 }

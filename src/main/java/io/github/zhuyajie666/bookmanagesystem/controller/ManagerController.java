@@ -13,11 +13,12 @@ import io.github.zhuyajie666.bookmanagesystem.service.ManagerService;
 import io.github.zhuyajie666.bookmanagesystem.utils.MapperUtils;
 import io.github.zhuyajie666.bookmanagesystem.vo.ManagerVo;
 import io.github.zhuyajie666.bookmanagesystem.vo.PageResult;
-import io.github.zhuyajie666.bookmanagesystem.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 @SuppressWarnings("ALL")
 @RestController
@@ -33,10 +34,10 @@ public class ManagerController {
     @RequestMapping("/login")
     public ResponseCode login(@RequestBody ManagerLoginForm managerLoginForm) {
         Manager manager = null;
-        if(managerLoginForm.getAccount().matches("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$")) {
-            manager = managerService.findByEmail(managerLoginForm.getAccount());
+        if(managerLoginForm.getUsername().matches("^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$")) {
+            manager = managerService.findByEmail(managerLoginForm.getUsername());
         } else {
-            manager = managerService.findByPhone(managerLoginForm.getAccount());
+            manager = managerService.findByPhone(managerLoginForm.getUsername());
         }
         if(manager == null) {
             throw new AppException(ResponseCode.ACCOUNT_NOT_EXIST);
@@ -48,9 +49,36 @@ public class ManagerController {
         return ResponseCode.build(token);
     }
 
+    @RequestMapping("/logout")
+    public ResponseCode logout(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        tokenManager.removeToken(token);
+        return ResponseCode.SUCCESS;
+    }
+
+    @RequestMapping("/getInfo")
+    public ResponseCode getInfo(HttpServletRequest request) {
+        String token = request.getHeader("token");
+        ManagerVo manager = tokenManager.getByToken(token);
+        return ResponseCode.build(manager);
+    }
+
+    @RequestMapping("/getById")
+    public ResponseCode<ManagerVo> getById(@RequestBody IdForm idForm) {
+        ManagerVo managerVo = managerService.findById(idForm.getId());
+        return ResponseCode.build(managerVo);
+    }
+
+    @RequestMapping("/update")
+    public ResponseCode update(@RequestBody ManagerSaveForm managerSaveForm) {
+        Manager manager = MapperUtils.map(managerSaveForm, Manager.class);
+        managerService.update(manager);
+        return ResponseCode.SUCCESS;
+    }
+
     @RequestMapping("/add")
     public ResponseCode add(@RequestBody ManagerSaveForm managerSaveForm) {
-        Manager manager = MapperUtils.map(managerSaveForm,Manager.class);
+        Manager manager = MapperUtils.map(managerSaveForm, Manager.class);
         managerService.add(manager);
         return ResponseCode.SUCCESS;
     }

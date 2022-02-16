@@ -1,7 +1,10 @@
 package io.github.zhuyajie666.bookmanagesystem.service;
 
+import io.github.zhuyajie666.bookmanagesystem.dto.BookIsbnQueryDto;
 import io.github.zhuyajie666.bookmanagesystem.dto.BookQueryDto;
 import io.github.zhuyajie666.bookmanagesystem.entity.Book;
+import io.github.zhuyajie666.bookmanagesystem.entity.model.BookCount;
+import io.github.zhuyajie666.bookmanagesystem.vo.BookIsbnVo;
 import io.github.zhuyajie666.bookmanagesystem.vo.BookVo;
 import io.github.zhuyajie666.bookmanagesystem.vo.PageResult;
 import io.github.zhuyajie666.bookmanagesystem.vo.UserVo;
@@ -33,4 +36,8 @@ public interface BookService {
     boolean borrow(String isbn);
 
     boolean returnBack(String isbn);
+
+    BookCount count();
+
+    PageResult<BookIsbnVo> queryBookIsbn(BookIsbnQueryDto bookIsbnQueryDto);
 }

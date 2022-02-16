@@ -12,6 +12,8 @@ public class UserBorrowLogVo {
      */
     private Integer userId;
 
+    private String userName;
+
     /**
      * 书籍id
      */
@@ -53,6 +55,31 @@ public class UserBorrowLogVo {
     private BigDecimal fine;
 
     /**
+     * 书籍名称
+     */
+    private String name;
+
+    /**
+     * 拼音
+     */
+    private String pinyin;
+
+    /**
+     * 拼音缩略
+     */
+    private String pinyinAbbr;
+
+    /**
+     * 书籍作者
+     */
+    private String author;
+
+    /**
+     * 出版日期
+     */
+    private String pub;
+
+    /**
      * @return id
      */
     public Integer getId() {
@@ -82,6 +109,14 @@ public class UserBorrowLogVo {
      */
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     /**
@@ -224,5 +259,45 @@ public class UserBorrowLogVo {
 
     public void setReturn(Boolean aReturn) {
         isReturn = aReturn;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPinyin() {
+        return pinyin;
+    }
+
+    public void setPinyin(String pinyin) {
+        this.pinyin = pinyin;
+    }
+
+    public String getPinyinAbbr() {
+        return pinyinAbbr;
+    }
+
+    public void setPinyinAbbr(String pinyinAbbr) {
+        this.pinyinAbbr = pinyinAbbr;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getPub() {
+        return pub;
+    }
+
+    public void setPub(String pub) {
+        this.pub = pub;
     }
 }

@@ -10,4 +10,19 @@
     <result column="is_borrowed" jdbcType="BIT" property="isBorrowed" />
 
   </resultMap>
+
+  <select id="query" parameterType="Map" resultMap="BaseResultMap">
+    select * from book_isbn
+    <where>
+      <if test="bookId != null">
+        AND book_id = #{bookId}
+      </if>
+      <if test="@Ognl@isNotEmpty(isbn)">
+        AND isbn = #{isbn}
+      </if>
+      <if test="borrowed">
+        AND is_borrowed = #{borrowed}
+      </if>
+    </where>
+  </select>
 </mapper>

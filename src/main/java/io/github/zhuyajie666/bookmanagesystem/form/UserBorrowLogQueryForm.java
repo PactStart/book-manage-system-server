@@ -8,6 +8,8 @@ public class UserBorrowLogQueryForm extends PageForm {
 
     private String isbn;
 
+    private Boolean isReturn;
+
     private Boolean overdue;
 
     public Integer getBookId() {
@@ -32,6 +34,14 @@ public class UserBorrowLogQueryForm extends PageForm {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    public Boolean getIsReturn() {
+        return isReturn;
+    }
+
+    public void setIsReturn(Boolean isReturn) {
+        this.isReturn = isReturn;
     }
 
     public Boolean getOverdue() {

@@ -10,6 +10,16 @@ public class Manager {
     private Integer id;
 
     /**
+     * 姓名
+     */
+    private String name;
+
+    /**
+     * 头像
+     */
+    private String avatar;
+
+    /**
      * 邮箱
      */
     private String email;
@@ -50,6 +60,22 @@ public class Manager {
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     /**

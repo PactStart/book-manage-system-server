@@ -1,11 +1,20 @@
 package io.github.zhuyajie666.bookmanagesystem.vo;
 
-import javax.persistence.*;
 import java.util.Date;
 
 public class ManagerVo {
 
     private Integer id;
+
+    /**
+     * 名字
+     */
+    private String name;
+
+    /**
+     * 头像
+     */
+    private String avatar;
 
     /**
      * 邮箱
@@ -41,6 +50,22 @@ public class ManagerVo {
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     /**
@@ -122,4 +147,5 @@ public class ManagerVo {
     public void setDel(Boolean del) {
         this.del = del;
     }
+
 }

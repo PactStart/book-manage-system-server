@@ -21,4 +21,7 @@ public interface UserMapper extends Mapper<User> {
     User selectOneByEmail(@Param("email") String email);
 
     List<User> query(Map<String, Object> condition);
+
+    @Select("select count(1) from manager where del = 0")
+    int selectUnDelCount();
 }

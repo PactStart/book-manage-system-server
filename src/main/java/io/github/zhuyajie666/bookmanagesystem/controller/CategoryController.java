@@ -35,6 +35,19 @@ public class CategoryController {
         return ResponseCode.SUCCESS;
     }
 
+    @RequestMapping("/getById")
+    public ResponseCode getById(@RequestBody IdForm idForm) {
+        CategoryVo categoryVo = categoryService.getById(idForm.getId());
+        return ResponseCode.build(categoryVo);
+    }
+
+    @RequestMapping("/update")
+    public ResponseCode update(@RequestBody CategorySaveForm categorySaveForm) {
+        Category category = MapperUtils.map(categorySaveForm,Category.class);
+        categoryService.update(category);
+        return ResponseCode.SUCCESS;
+    }
+
     @RequestMapping("/query")
     public ResponseCode query(@RequestBody CategoryQueryForm categoryQueryForm) {
         CategoryQueryDto categoryQueryDto = MapperUtils.map(categoryQueryForm, CategoryQueryDto.class);
@@ -52,5 +65,11 @@ public class CategoryController {
     public ResponseCode delete(@RequestBody IdForm idForm) {
         bookAssembleService.deleteCategory(idForm.getId());
         return ResponseCode.SUCCESS;
+    }
+
+    @RequestMapping("/tree")
+    public ResponseCode tree() {
+        List<CategoryVo> categoryVoList = categoryService.getCategoryTree();
+        return ResponseCode.build(categoryVoList);
     }
 }

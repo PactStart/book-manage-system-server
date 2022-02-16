@@ -21,4 +21,7 @@ public interface ManagerMapper extends Mapper<Manager> {
     Manager selectOneByPhone(@Param("phone") String phone);
 
     List<Manager> query(Map<String, Object> condition);
+
+    @Select("select count(1) from manager where del = 0")
+    int selectUnDelCount();
 }
